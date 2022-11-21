@@ -1,14 +1,22 @@
-// import Feedback from './Feedback/Feedback.jsx'
 import React from 'react';
+// import PropTypes from "prop-types";
+
 import Statistics from './Statistics/Statistics';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Section from './Section/Section';
+import Notification from './Notification/Notification'
 
 
 
 export class App extends React.Component {
   static defaultProps = {};
-  static propTypes = {};
+  static propTypes = {
+    // good: PropTypes.number.isRequired,
+    // neutral: PropTypes.number.isRequired,
+    // bad: PropTypes.number.isRequired,
+    // total: PropTypes.number.isRequired,
+    // positivePercentage: PropTypes.number.isRequired
+  };
 
   state = {
     good: 0,
@@ -71,7 +79,7 @@ export class App extends React.Component {
 
   countPositiveFeedbackPercentage = () => {
     let total = this.countTotalFeedback();
-    return total ? 100 / total * this.state.good : 0;
+    return parseInt(total ? 100 / total * this.state.good : 0);
   };
 
   render() {
@@ -81,7 +89,9 @@ export class App extends React.Component {
     return (<div>
       <Section title="Please leave feedback">
         <FeedbackOptions options={Object.keys(this.state)} onLeaveFeedback={this.onLeaveFeedback} />
-        <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} positivePercentage={positiveFeedback} />
+        {total ? <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} positivePercentage={positiveFeedback} />
+          : <Notification message="There is no feedback" />
+        }
       </Section>
     </div >);
   }
