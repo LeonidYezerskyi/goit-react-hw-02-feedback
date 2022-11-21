@@ -1,5 +1,9 @@
 // import Feedback from './Feedback/Feedback.jsx'
 import React from 'react';
+import Statistics from './Statistics/Statistics';
+import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
+import Section from './Section/Section';
+
 
 
 export class App extends React.Component {
@@ -35,13 +39,39 @@ export class App extends React.Component {
     });
   };
 
+  // onLeaveFeedback = (event) => {
+  //   const tagBtn = event.target.value;
+  //   switch (tagBtn) {
+  //     case 'good':
+  //       this.addGood()
+  //       break;
+  //     case 'neutral':
+  //       this.addNeutral()
+  //       break;
+  //     case 'bad':
+  //       this.addBad()
+  //       break;
+  //     default:
+  //       return;
+  //   }
+  // };
+
+  onLeaveFeedback = (event) => {
+    const tagBtn = event.target.value;
+    this.setState(prevState => {
+      return {
+        [tagBtn]: prevState[tagBtn] + 1,
+      };
+    })
+  };
+
   countTotalFeedback = () => {
     return this.state.good + this.state.neutral + this.state.bad
   };
 
   countPositiveFeedbackPercentage = () => {
     let total = this.countTotalFeedback();
-    return 100 / total * this.state.good;
+    return total ? 100 / total * this.state.good : 0;
   };
 
   render() {
@@ -49,22 +79,10 @@ export class App extends React.Component {
     let total = this.countTotalFeedback();
 
     return (<div>
-      <h1>Please leave feedback</h1>
-
-      <div>
-        <button type='button' onClick={this.addGood}>Good</button>
-        <button type='button' onClick={this.addNeutral}>Neutral</button>
-        <button type='button' onClick={this.addBad}>Bad</button>
-      </div>
-
-      <h2>Statistics</h2>
-      <div>
-        <span>Good: {this.state.good}</span>
-        <span>Neutral: {this.state.neutral}</span>
-        <span>Bad: {this.state.bad}</span>
-        <span>Total: {total} </span>
-        <span>Positive feedback: {positiveFeedback}%</span>
-      </div>
+      <Section title="Please leave feedback">
+        <FeedbackOptions options={Object.keys(this.state)} onLeaveFeedback={this.onLeaveFeedback} />
+        <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} positivePercentage={positiveFeedback} />
+      </Section>
     </div >);
   }
 }
