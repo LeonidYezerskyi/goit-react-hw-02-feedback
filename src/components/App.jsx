@@ -1,6 +1,4 @@
 import React from 'react';
-// import PropTypes from "prop-types";
-
 import Statistics from './Statistics/Statistics';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Section from './Section/Section';
@@ -9,15 +7,6 @@ import Notification from './Notification/Notification'
 
 
 export class App extends React.Component {
-  static defaultProps = {};
-  static propTypes = {
-    // good: PropTypes.number.isRequired,
-    // neutral: PropTypes.number.isRequired,
-    // bad: PropTypes.number.isRequired,
-    // total: PropTypes.number.isRequired,
-    // positivePercentage: PropTypes.number.isRequired
-  };
-
   state = {
     good: 0,
     neutral: 0,
@@ -46,23 +35,6 @@ export class App extends React.Component {
       };
     });
   };
-
-  // onLeaveFeedback = (event) => {
-  //   const tagBtn = event.target.value;
-  //   switch (tagBtn) {
-  //     case 'good':
-  //       this.addGood()
-  //       break;
-  //     case 'neutral':
-  //       this.addNeutral()
-  //       break;
-  //     case 'bad':
-  //       this.addBad()
-  //       break;
-  //     default:
-  //       return;
-  //   }
-  // };
 
   onLeaveFeedback = (event) => {
     const tagBtn = event.target.value;
