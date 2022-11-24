@@ -13,29 +13,6 @@ export class App extends React.Component {
     bad: 0
   }
 
-  addGood = () => {
-    this.setState(prevState => {
-      return {
-        good: prevState.good + 1,
-      };
-    });
-  };
-
-  addNeutral = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-  addBad = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
-      };
-    });
-  };
-
   onLeaveFeedback = (event) => {
     const tagBtn = event.target.value;
     this.setState(prevState => {
@@ -50,13 +27,13 @@ export class App extends React.Component {
   };
 
   countPositiveFeedbackPercentage = () => {
-    let total = this.countTotalFeedback();
+    const total = this.countTotalFeedback();
     return parseInt(total ? 100 / total * this.state.good : 0);
   };
 
   render() {
-    let positiveFeedback = this.countPositiveFeedbackPercentage();
-    let total = this.countTotalFeedback();
+    const positiveFeedback = this.countPositiveFeedbackPercentage();
+    const total = this.countTotalFeedback();
 
     return (<div>
       <Section title="Please leave feedback">
